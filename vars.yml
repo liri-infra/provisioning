@@ -1,0 +1,21 @@
+---
+ansible_python_interpreter: /usr/bin/python2
+
+nginx_vhosts:
+  - server_name: build.liri.io
+    listen: 80
+    root: /usr/share/nginx/html/build.liri.io
+    access_log: /var/log/nginx/log/build.liri.io/access_log
+    error_log: /var/log/nginx/log/build.liri.io/error_log
+    extra_parameters: |
+      autoindex on;
+  - server_name: repo.liri.io
+    listen: 80
+    root: /usr/share/nginx/html/repo.liri.io
+    access_log: /var/log/nginx/log/repo.liri.io/access_log
+    error_log: /var/log/nginx/log/repo.liri.io/error_log
+    extra_parameters: |
+      autoindex on;
+nginx_conf_path: /etc/nginx
+nginx_html_path: /srv/www
+nginx_logs_path: /var/log/nginx

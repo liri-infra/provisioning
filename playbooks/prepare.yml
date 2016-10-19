@@ -1,0 +1,22 @@
+---
+- hosts: main
+  become: yes
+  become_method: su
+  vars_files:
+    - ../vars.yml
+  tasks:
+    - name: Create nginx logs directory
+      file: path={{ nginx_logs_path }}/build.liri.io state=directory recurse=yes mode=0755
+    - name: Create Arch Linux stable repository root
+      file: path={{ nginx_html_path }}/repo.liri.io/archlinux/stable state=directory recurse=yes mode=0755
+    - name: Create Arch Linux unstable repository root
+      file: path={{ nginx_html_path }}/repo.liri.io/archlinux/unstable state=directory recurse=yes mode=0755
+    - name: Create nginx configuration directory
+      file: path={{ nginx_conf_path }} state=directory recurse=yes mode=0755
+    - name: Create nginx logs directory for repo
+      file: path={{ nginx_logs_path }}/repo.liri.io state=directory recurse=yes mode=0755
+    - name: Set up nginx
+      template:
+        src: ../templates/nginx-vhosts.conf.j2
+        dest: "{{ nginx_conf_path }}/nginx-vhosts.conf"
+        mode: 0644

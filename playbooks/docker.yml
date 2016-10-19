@@ -1,0 +1,7 @@
+---
+- hosts: build
+  become: yes
+  become_method: su
+  tasks:
+    - name: Pull archlinux/devel container
+      command: docker pull liri-docker-build.bintray.io/archlinux/devel:latest

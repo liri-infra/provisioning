@@ -1,0 +1,8 @@
+[main]
+build.liri.io ansible_ssh_user=liri ansible_python_interpreter=/usr/bin/python2
+
+[build]
+build.liri.io ansible_ssh_user=liri ansible_python_interpreter=/usr/bin/python2
+
+[repo]
+repo.liri.io ansible_ssh_user=liri ansible_python_interpreter=/usr/bin/python2

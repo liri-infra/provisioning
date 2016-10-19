@@ -1,0 +1,15 @@
+---
+- hosts: main
+  become: yes
+  become_method: su
+  vars_files:
+    - ../vars.yml
+  tasks:
+    - name: Pull image
+      command: docker pull liri-docker-infra.bintray.io/library/nginx:latest
+    - name: Stop nginx
+      command: bash -c "docker stop www; /bin/true"
+    - name: Remove container
+      command: bash -c "docker rm www; /bin/true"
+    - name: Start nginx
+      command: docker run --name www -v {{ nginx_conf_path }}/nginx-vhosts.conf:/etc/nginx/conf.d/default.conf:ro -v {{ nginx_html_path }}:/usr/share/nginx/html:ro -v {{ nginx_logs_path }}:/var/log/nginx/log -p 80:80 -p 443:443 --restart=on-failure:5 -d liri-docker-infra.bintray.io/library/nginx:latest
