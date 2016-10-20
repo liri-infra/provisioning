@@ -5,6 +5,9 @@
   vars_files:
     - ../vars.yml
   tasks:
+    - name: Create www root
+      file: path={{ nginx_html_path }}/liri.io state=directory recurse=yes owner=liri group=liri mode=0755
+
     - name: Create nginx logs directory for www
       file: path={{ nginx_logs_path }}/liri.io state=directory recurse=yes mode=0755
 
