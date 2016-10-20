@@ -1,0 +1,15 @@
+[Unit]
+Description=nginx container
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %i
+ExecStartPre=-/usr/bin/docker rm %i
+ExecStartPre=/usr/bin/docker pull {{ nginx_docker_image }}
+ExecStart=/usr/bin/docker run --rm --name %i -v {{ nginx_conf_path }}/nginx-vhosts.conf:/etc/nginx/conf.d/default.conf:ro -v {{ nginx_html_path }}:/usr/share/nginx/html:ro -v {{ nginx_logs_path }}:/var/log/nginx/log -p 80:80 -p 443:443 {{ nginx_docker_image }}
+
+[Install]
+WantedBy=multi-user.target

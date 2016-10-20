@@ -5,11 +5,19 @@
   vars_files:
     - ../vars.yml
   tasks:
-    - name: Pull image
-      command: docker pull liri-docker-infra.bintray.io/library/nginx:latest
-    - name: Stop nginx
-      shell: docker stop www || /bin/true
-    - name: Remove container
-      shell: docker rm www || /bin/true
-    - name: Start nginx
-      command: docker run --name www -v {{ nginx_conf_path }}/nginx-vhosts.conf:/etc/nginx/conf.d/default.conf:ro -v {{ nginx_html_path }}:/usr/share/nginx/html:ro -v {{ nginx_logs_path }}:/var/log/nginx/log -p 80:80 -p 443:443 --restart=on-failure:5 -d liri-docker-infra.bintray.io/library/nginx:latest
+    - name: Set up virtual hosts
+      template:
+        src: ../templates/nginx-vhosts.conf.j2
+        dest: "{{ nginx_conf_path }}/nginx-vhosts.conf"
+        mode: 0644
+    - name: Install systemd unit
+      template:
+        src: ../templates/nginx.service.j2
+        dest: /etc/systemd/system/docker@www.service
+        mode: 0644
+    - name: Start service
+      shell: systemctl enable docker@www.service && systemctl restart docker@www.service
+#      systemd:
+#        name: docker.www.service
+#        state: started
+#        enabled: True

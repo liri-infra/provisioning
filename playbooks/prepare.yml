@@ -31,9 +31,3 @@
         url: https://raw.githubusercontent.com/lirios/lirios.github.io/master/favicon.ico
         dest: "{{ nginx_html_path }}/repo.liri.io/favicon.ico"
         mode: 0644
-
-    - name: Set up nginx
-      template:
-        src: ../templates/nginx-vhosts.conf.j2
-        dest: "{{ nginx_conf_path }}/nginx-vhosts.conf"
-        mode: 0644
