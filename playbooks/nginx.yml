@@ -5,10 +5,17 @@
   vars_files:
     - ../vars.yml
   tasks:
+    - name: Create nginx snippets directory
+      file: path={{ nginx_conf_path }}/snippets state=directory recurse=yes mode=0755
     - name: Set up virtual hosts
       template:
         src: ../templates/nginx-vhosts.conf.j2
         dest: "{{ nginx_conf_path }}/nginx-vhosts.conf"
+        mode: 0644
+    - name: Install snippets
+      copy:
+        src: ../templates/nginx-ssl-snippet.conf
+        dest: "{{ nginx_conf_path }}/snippets/ssl.conf"
         mode: 0644
     - name: Install systemd unit
       template:

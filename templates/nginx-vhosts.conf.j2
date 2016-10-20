@@ -10,6 +10,22 @@ server {
     root {{ vhost.root }};
     {% endif %}
 
+    {% if vhost.includes is defined %}
+    {% for include in vhost.includes %}
+    include {{ include }};
+    {% endfor %}
+    {% endif %}
+
+    {% if vhost.ssl_certificate is defined %}
+    ssl_certificate {{ vhost.ssl_certificate }};
+    {% endif %}
+    {% if vhost.ssl_certificate_key is defined %}
+    ssl_certificate_key {{ vhost.ssl_certificate_key }};
+    {% endif %}
+    {% if vhost.ssl_trusted_certificate is defined %}
+    ssl_trusted_certificate {{ vhost.ssl_trusted_certificate }};
+    {% endif %}
+
     index {{ vhost.index | default('index.html index.htm') }};
 
     {% if vhost.error_page is defined %}
