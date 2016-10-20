@@ -1,0 +1,9 @@
+---
+- hosts: main
+  become: yes
+  become_method: sudo
+  vars_files:
+    - ../vars.yml
+  tasks:
+    - name: Install package
+      apt: name=letsencrypt state=present
