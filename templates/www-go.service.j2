@@ -1,0 +1,15 @@
+[Unit]
+Description=%i container
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=on-failure
+ExecStartPre=/usr/bin/docker pull {{ www_go.docker_image }}
+ExecStart=/usr/bin/docker run --rm --name %i -v {{ www_go.config_file }}:/go/bin/config.ini:ro {{ www_go.docker_image }}
+ExecStop=-/usr/bin/docker stop %i
+ExecStopPost=-/usr/bin/docker rm %i
+
+[Install]
+WantedBy=multi-user.target

@@ -7,24 +7,42 @@
   tasks:
     - name: Create nginx snippets directory
       file: path={{ nginx_conf_path }}/snippets state=directory recurse=yes mode=0755
+    - name: Create nginx conf.d directory
+      file: path={{ nginx_conf_path }}/conf.d state=directory recurse=yes mode=0755
     - name: Set up virtual hosts
       template:
         src: ../templates/nginx-vhosts.conf.j2
         dest: "{{ nginx_conf_path }}/nginx-vhosts.conf"
         mode: 0644
-    - name: Install snippets
+    - name: Install ssl snippet
       copy:
         src: ../nginx/snippets/ssl.conf
         dest: "{{ nginx_conf_path }}/snippets/ssl.conf"
         mode: 0644
-    - name: Install systemd unit
+    - name: Install www-go snippet
+      copy:
+        src: ../nginx/snippets/www-go.conf
+        dest: "{{ nginx_conf_path }}/snippets/www-go.conf"
+        mode: 0644
+    - name: Install www-go systemd unit
+      template:
+        src: ../templates/www-go.service.j2
+        dest: /etc/systemd/system/docker@www-go.service
+        mode: 0644
+    - name: Start www-go service
+      shell: systemctl enable docker@www-go.service && systemctl daemon-reload && systemctl restart docker@www-go.service
+#      systemd:
+#        name: docker@www-go.service
+#        state: started
+#        enabled: True
+    - name: Install www systemd unit
       template:
         src: ../templates/nginx.service.j2
         dest: /etc/systemd/system/docker@www.service
         mode: 0644
-    - name: Start service
-      shell: systemctl enable docker@www.service && systemctl restart docker@www.service
+    - name: Start www service
+      shell: systemctl enable docker@www.service && systemctl daemon-reload && systemctl restart docker@www.service
 #      systemd:
-#        name: docker.www.service
+#        name: docker@www.service
 #        state: started
 #        enabled: True
