@@ -14,7 +14,7 @@
         mode: 0644
     - name: Install snippets
       copy:
-        src: ../templates/nginx-ssl-snippet.conf
+        src: ../nginx/snippets/ssl.conf
         dest: "{{ nginx_conf_path }}/snippets/ssl.conf"
         mode: 0644
     - name: Install systemd unit
