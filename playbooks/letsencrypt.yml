@@ -7,3 +7,9 @@
   tasks:
     - name: Install package
       apt: name=letsencrypt state=present
+    - cron:
+        name: Renew certificates
+        hour: 10,23
+        user: root
+        job: /usr/bin/letsencrypt renew && systemctl restart docker@www.service
+        cron_file: ansible_letsencrypt-renew
