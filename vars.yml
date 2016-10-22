@@ -14,8 +14,8 @@ nginx_vhosts:
     access_log: /var/log/nginx/liri.io/https_access_log
     error_log: /var/log/nginx/liri.io/https_error_log
     includes:
-      - snippets/ssl.conf
-      - snippets/www-go.conf
+      - /etc/nginx/snippets/ssl.conf
+      - /etc/nginx/snippets/www-go.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
@@ -33,7 +33,7 @@ nginx_vhosts:
     error_log: /var/log/nginx/liri.io/https_www_error_log
     return: 301 https://liri.io$request_uri
     includes:
-      - snippets/ssl.conf
+      - /etc/nginx/snippets/ssl.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
@@ -51,7 +51,7 @@ nginx_vhosts:
     error_log: /var/log/nginx/liri.io/https_wiki_error_log
     return: 301 https://github.com/lirios/lirios/wiki
     includes:
-      - snippets/ssl.conf
+      - /etc/nginx/snippets/ssl.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
@@ -72,7 +72,7 @@ nginx_vhosts:
     extra_parameters: |
       autoindex on;
     includes:
-      - snippets/ssl.conf
+      - /etc/nginx/snippets/ssl.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
@@ -93,7 +93,7 @@ nginx_vhosts:
     extra_parameters: |
       autoindex on;
     includes:
-      - snippets/ssl.conf
+      - /etc/nginx/snippets/ssl.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
