@@ -13,6 +13,7 @@ nginx_vhosts:
     root: /usr/share/nginx/html/liri.io
     access_log: /var/log/nginx/liri.io/https_access_log
     error_log: /var/log/nginx/liri.io/https_error_log
+    error_page: 404 /404.html
     includes:
       - /etc/nginx/snippets/ssl.conf
       - /etc/nginx/snippets/www-go.conf
@@ -69,8 +70,13 @@ nginx_vhosts:
     root: /usr/share/nginx/html/build.liri.io
     access_log: /var/log/nginx/build.liri.io/https_access_log
     error_log: /var/log/nginx/build.liri.io/https_error_log
+    error_page: 404 /404.html
     extra_parameters: |
       autoindex on;
+      location = /404.html {
+          root /usr/share/nginx/html/liri.io;
+          internal;
+      }
     includes:
       - /etc/nginx/snippets/ssl.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
@@ -90,8 +96,13 @@ nginx_vhosts:
     root: /usr/share/nginx/html/repo.liri.io
     access_log: /var/log/nginx/repo.liri.io/https_access_log
     error_log: /var/log/nginx/repo.liri.io/https_error_log
+    error_page: 404 /404.html
     extra_parameters: |
       autoindex on;
+      location = /404.html {
+          root /usr/share/nginx/html/liri.io;
+          internal;
+      }
     includes:
       - /etc/nginx/snippets/ssl.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
