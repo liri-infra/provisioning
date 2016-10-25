@@ -115,4 +115,4 @@ nginx_docker_image: liri-docker-infra.bintray.io/library/nginx:latest
 
 www_go:
   config_file: /etc/liri/www-go.ini
-  docker_image: liri-docker-infra.bintray.io/www/serverside:latest
+  docker_image: liri-docker-registry.bintray.io/library/website:latest
