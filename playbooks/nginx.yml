@@ -19,6 +19,11 @@
         src: ../nginx/snippets/ssl.conf
         dest: "{{ nginx_conf_path }}/snippets/ssl.conf"
         mode: 0644
+    - name: Install gzip snippet
+      copy:
+        src: ../nginx/snippets/gzip.conf
+        dest: "{{ nginx_conf_path }}/snippets/gzip.conf"
+        mode: 0644
     - name: Install www-go snippet
       copy:
         src: ../nginx/snippets/www-go.conf
