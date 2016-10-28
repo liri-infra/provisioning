@@ -17,6 +17,7 @@ nginx_vhosts:
     includes:
       - /etc/nginx/snippets/ssl.conf
       - /etc/nginx/snippets/gzip.conf
+      - /etc/nginx/snippets/expires.conf
       - /etc/nginx/snippets/www-go.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
@@ -81,6 +82,7 @@ nginx_vhosts:
     includes:
       - /etc/nginx/snippets/ssl.conf
       - /etc/nginx/snippets/gzip.conf
+      - /etc/nginx/snippets/expires.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
@@ -108,6 +110,7 @@ nginx_vhosts:
     includes:
       - /etc/nginx/snippets/ssl.conf
       - /etc/nginx/snippets/gzip.conf
+      - /etc/nginx/snippets/expires.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem

@@ -24,6 +24,11 @@
         src: ../nginx/snippets/gzip.conf
         dest: "{{ nginx_conf_path }}/snippets/gzip.conf"
         mode: 0644
+    - name: Install expires snippet
+      copy:
+        src: ../nginx/snippets/expires.conf
+        dest: "{{ nginx_conf_path }}/snippets/expires.conf"
+        mode: 0644
     - name: Install www-go snippet
       copy:
         src: ../nginx/snippets/www-go.conf
