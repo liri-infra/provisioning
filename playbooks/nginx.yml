@@ -7,8 +7,6 @@
   tasks:
     - name: Create nginx snippets directory
       file: path={{ nginx_conf_path }}/snippets state=directory recurse=yes mode=0755
-    - name: Create nginx conf.d directory
-      file: path={{ nginx_conf_path }}/conf.d state=directory recurse=yes mode=0755
     - name: Set up virtual hosts
       template:
         src: ../templates/nginx-vhosts.conf.j2
