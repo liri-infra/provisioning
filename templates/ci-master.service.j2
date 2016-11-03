@@ -7,7 +7,7 @@ Requires=docker.service
 TimeoutStartSec=0
 Restart=on-failure
 ExecStartPre=/usr/bin/docker pull {{ ci_master.docker_image }}
-ExecStart=/usr/bin/docker run --rm --name %i -v {{ ci_master.config_file }}:/config.ini:ro -v {{ ci_master.data_path }}:/data -v {{ ci_master.output_path }}:/output {{ ci_master.docker_image }}
+ExecStart=/usr/bin/docker run --rm --name %i -v /var/run/docker.sock:/var/run/docker.sock -v {{ ci_master.config_file }}:/config.ini:ro -v {{ ci_master.data_path }}:/data -v {{ ci_master.output_path }}:/output -v {{ nginx_html_path }}/repo.liri.io:/repo {{ ci_master.docker_image }}
 ExecStop=-/usr/bin/docker stop %i
 ExecStopPost=-/usr/bin/docker rm %i
 
