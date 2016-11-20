@@ -1,0 +1,8 @@
+---
+- hosts: main
+  become: yes
+  become_method: sudo
+  vars_files:
+    - ../vars.yml
+  tasks:
+    - cron: name="remove old images" minute="0" hour="22" job="find /srv/www/repo.liri.io/iso -type f -ctime +7 -print | xargs rm -f"
