@@ -9,7 +9,14 @@
       apt: name=letsencrypt state=present
     - cron:
         name: Renew certificates
+        minute: 0
         hour: 10,23
         user: root
         job: /usr/bin/letsencrypt renew && systemctl restart docker@www.service
         cron_file: ansible_letsencrypt-renew
+    - name: Restart cron service
+      shell: systemctl daemon-reload && systemctl restart cron.service
+#      systemd:
+#        name: cron.service
+#        state: started
+#        enabled: True
