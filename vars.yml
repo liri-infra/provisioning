@@ -19,9 +19,8 @@ nginx_vhosts:
       - /etc/nginx/snippets/gzip.conf
       - /etc/nginx/snippets/expires.conf
       - /etc/nginx/snippets/www-go.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    ssl_certificate: /etc/nginx/ssl/ssl-bundle.crt
+    ssl_certificate_key: /etc/nginx/ssl/private.key
 
   - server_name: www.liri.io
     listen: 80
@@ -37,9 +36,8 @@ nginx_vhosts:
     return: 301 https://liri.io$request_uri
     includes:
       - /etc/nginx/snippets/ssl.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    ssl_certificate: /etc/nginx/ssl/ssl-bundle.crt
+    ssl_certificate_key: /etc/nginx/ssl/private.key
 
   - server_name: wiki.liri.io
     listen: 80
@@ -55,9 +53,8 @@ nginx_vhosts:
     return: 301 https://github.com/lirios/lirios/wiki
     includes:
       - /etc/nginx/snippets/ssl.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    ssl_certificate: /etc/nginx/ssl/ssl-bundle.crt
+    ssl_certificate_key: /etc/nginx/ssl/private.key
 
   - server_name: build.liri.io
     listen: 80
@@ -84,9 +81,8 @@ nginx_vhosts:
       - /etc/nginx/snippets/gzip.conf
       - /etc/nginx/snippets/expires.conf
       - /etc/nginx/snippets/ci-master.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    ssl_certificate: /etc/nginx/ssl/ssl-bundle.crt
+    ssl_certificate_key: /etc/nginx/ssl/private.key
 
   - server_name: repo.liri.io
     listen: 80
@@ -112,9 +108,8 @@ nginx_vhosts:
       - /etc/nginx/snippets/ssl.conf
       - /etc/nginx/snippets/gzip.conf
       - /etc/nginx/snippets/expires.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    ssl_certificate: /etc/nginx/ssl/ssl-bundle.crt
+    ssl_certificate_key: /etc/nginx/ssl/private.key
 nginx_conf_path: /etc/nginx
 nginx_html_path: /srv/www
 nginx_logs_path: /var/log/nginx
