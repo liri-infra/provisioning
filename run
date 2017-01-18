@@ -1,0 +1,2 @@
+#!/bin/sh
+exec ansible-playbook -i inventory playbooks/$1 --ask-become-pass
