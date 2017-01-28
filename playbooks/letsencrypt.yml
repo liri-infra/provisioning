@@ -10,7 +10,7 @@
     - cron:
         name: Renew certificates
         minute: 0
-        hour: 10,23
+        hour: 10
         user: root
         job: /usr/bin/letsencrypt renew && systemctl restart docker@www.service
         cron_file: ansible_letsencrypt-renew
