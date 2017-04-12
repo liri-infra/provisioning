@@ -1,2 +1,2 @@
 #!/bin/sh
-exec ansible-playbook -i inventory playbooks/$1 --ask-become-pass
+exec ansible-playbook --vault-password-file=~/.ansible/liri_pass.txt -i inventory playbooks/$1 --ask-become-pass

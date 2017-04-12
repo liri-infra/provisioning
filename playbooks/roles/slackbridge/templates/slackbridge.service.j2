@@ -1,0 +1,14 @@
+[Unit]
+Description=slackbridge container
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=on-failure
+ExecStart=/usr/bin/docker run --rm --name %i -v {{ slackbridge.config_file }}:/config.json:ro {{ slackbridge.docker_image }}
+ExecStop=-/usr/bin/docker stop %i
+ExecStopPost=-/usr/bin/docker rm %i
+
+[Install]
+WantedBy=multi-user.target
