@@ -1,2 +1,16 @@
 #!/bin/sh
-exec ansible-playbook --vault-password-file=~/.ansible/liri_pass.txt -i inventory playbooks/$1 --ask-become-pass
+
+playbook=$1
+
+if [ -z "$playbook" ]; then
+    echo "Usage: $0 [playbook]"
+    exit 1
+fi
+
+playbook_path=playbooks/${playbook}.yml
+if [ ! -f $playbook_path ]; then
+    echo "Playbook $playbook doesn't exist!"
+    exit 1
+fi
+
+exec ansible-playbook --vault-password-file=~/.ansible/liri_pass.txt -i inventory $playbook_path --ask-become-pass
