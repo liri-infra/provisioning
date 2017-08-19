@@ -19,6 +19,7 @@ nginx_vhosts:
       - /etc/nginx/snippets/gzip.conf
       - /etc/nginx/snippets/expires.conf
       - /etc/nginx/snippets/www-go.conf
+      - /etc/nginx/snippets/docs.conf
     ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
     ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
     ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem

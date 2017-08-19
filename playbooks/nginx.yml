@@ -27,6 +27,11 @@
         src: ../nginx/snippets/expires.conf
         dest: "{{ nginx_conf_path }}/snippets/expires.conf"
         mode: 0644
+    - name: Install docs snippet
+      copy:
+        src: ../nginx/snippets/docs.conf
+        dest: "{{ nginx_conf_path }}/snippets/docs.conf"
+        mode: 0644
 
 
     - name: Create ci-master data directory
