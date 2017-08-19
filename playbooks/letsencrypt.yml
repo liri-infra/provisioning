@@ -5,18 +5,14 @@
   vars_files:
     - ../vars.yml
   tasks:
+    - apt_repository:
+      repo: "ppa:certbot/certbot"
     - name: Install package
-      apt: name=letsencrypt state=present
+      apt: name=certbot state=present
     - cron:
         name: Renew certificates
         minute: 0
         hour: 10
         user: root
-        job: /usr/bin/letsencrypt renew && systemctl restart docker@www.service
+        job: /usr/bin/certbot renew --pre-hook "systemctl stop docker@www" --post-hook "systemctl start docker@www"
         cron_file: ansible_letsencrypt-renew
-    - name: Restart cron service
-      shell: systemctl daemon-reload && systemctl restart cron.service
-#      systemd:
-#        name: cron.service
-#        state: started
-#        enabled: True
