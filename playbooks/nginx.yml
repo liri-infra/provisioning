@@ -56,6 +56,12 @@
 #        enabled: True
 
 
+    - name: Install buildbot-master snippet
+      copy:
+        src: ../nginx/snippets/buildbot-master.conf
+        dest: "{{ nginx_conf_path }}/snippets/buildbot-master.conf"
+        mode: 0644
+
     - name: Install www-go snippet
       copy:
         src: ../nginx/snippets/www-go.conf
