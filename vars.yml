@@ -124,9 +124,3 @@ nginx_docker_image: liri-docker-registry.bintray.io/library/nginx:latest
 www_go:
   config_file: /etc/liri/www-go.ini
   docker_image: liri-docker-registry.bintray.io/library/website:latest
-
-ci_master:
-  config_file: /etc/liri/ci.ini
-  docker_image: liri-docker-registry.bintray.io/library/ci:latest
-  data_path: /srv/ci/data
-  output_path: /srv/ci/output

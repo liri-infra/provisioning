@@ -34,33 +34,12 @@
         mode: 0644
 
 
-    - name: Create ci-master data directory
-      file: path={{ ci_master.data_path }} state=directory recurse=yes mode=0755
-    - name: Create ci-master output directory
-      file: path={{ ci_master.output_path }} state=directory recurse=yes mode=0755
-    - name: Install ci-master systemd unit
-      template:
-        src: ../templates/ci-master.service.j2
-        dest: /etc/systemd/system/docker@ci-master.service
-        mode: 0644
-    - name: Install ci-master snippet
-      copy:
-        src: ../nginx/snippets/ci-master.conf
-        dest: "{{ nginx_conf_path }}/snippets/ci-master.conf"
-        mode: 0644
-    - name: Start ci-master service
-      shell: systemctl enable docker@ci-master.service && systemctl daemon-reload && systemctl restart docker@ci-master.service
-#      systemd:
-#        name: docker@ci-master.service
-#        state: started
-#        enabled: True
-
-
     - name: Install buildbot-master snippet
       copy:
         src: ../nginx/snippets/buildbot-master.conf
         dest: "{{ nginx_conf_path }}/snippets/buildbot-master.conf"
         mode: 0644
+
 
     - name: Install www-go snippet
       copy:
