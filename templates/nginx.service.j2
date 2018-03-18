@@ -7,7 +7,7 @@ Requires=docker@www-go.service
 TimeoutStartSec=0
 Restart=on-failure
 ExecStartPre=/usr/bin/docker pull {{ nginx_docker_image }}
-ExecStart=/usr/bin/docker run --rm --name %i -v /etc/letsencrypt:/etc/letsencrypt:ro -v {{ nginx_conf_path }}/nginx-vhosts.conf:/etc/nginx/conf.d/default.conf:ro -v {{ nginx_conf_path }}/snippets:/etc/nginx/snippets:ro -v {{ nginx_html_path }}:/usr/share/nginx/html:ro -v {{ nginx_logs_path }}:/var/log/nginx -p 80:80 -p 443:443 --link www-go:go --link buildbot-master:bm {{ nginx_docker_image }}
+ExecStart=/usr/bin/docker run --rm --name %i -v /etc/letsencrypt:/etc/letsencrypt:ro -v {{ nginx_conf_path }}/nginx-vhosts.conf:/etc/nginx/conf.d/default.conf:ro -v {{ nginx_conf_path }}/secure:/etc/nginx/secure:ro -v {{ nginx_conf_path }}/snippets:/etc/nginx/snippets:ro -v {{ nginx_html_path }}:/usr/share/nginx/html:ro -v {{ nginx_logs_path }}:/var/log/nginx -p 80:80 -p 443:443 --link www-go:go --link buildbot-master:bm {{ nginx_docker_image }}
 ExecStop=-/usr/bin/docker stop %i
 ExecStopPost=-/usr/bin/docker rm %i
 

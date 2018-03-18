@@ -7,6 +7,8 @@
   tasks:
     - name: Create nginx snippets directory
       file: path={{ nginx_conf_path }}/snippets state=directory recurse=yes mode=0755
+    - name: Create nginx secure directory
+      file: path={{ nginx_conf_path }}/secure state=directory recurse=yes mode=0755
     - name: Set up virtual hosts
       template:
         src: ../templates/nginx-vhosts.conf.j2
@@ -32,7 +34,16 @@
         src: ../nginx/snippets/docs.conf
         dest: "{{ nginx_conf_path }}/snippets/docs.conf"
         mode: 0644
-
+    - name: Install repo.liri.io snippet
+      copy:
+        src: ../nginx/snippets/repo.liri.io.conf
+        dest: "{{ nginx_conf_path }}/snippets/repo.liri.io.conf"
+        mode: 0644
+    - name: Install artifacts.htpasswd
+      copy:
+        src: ../nginx/secure/artifacts.htpasswd
+        dest: "{{ nginx_conf_path }}/secure/artifacts.htpasswd"
+        mode: 0644
 
     - name: Install buildbot-master snippet
       copy:

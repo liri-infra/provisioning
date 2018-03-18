@@ -37,3 +37,10 @@
         url: https://raw.githubusercontent.com/lirios/lirios.github.io/master/favicon.ico
         dest: "{{ nginx_html_path }}/repo.liri.io/favicon.ico"
         mode: 0644
+
+    - name: Create CI artifacts directory
+      file: path={{ nginx_html_path }}/repo.liri.io/artifacts state=directory recurse=yes mode=0755
+    - name: Create CI artifacts master directory
+      file: path={{ nginx_html_path }}/repo.liri.io/artifacts/master state=directory recurse=yes mode=0755
+    - name: Create CI artifacts develop directory
+      file: path={{ nginx_html_path }}/repo.liri.io/artifacts/develop state=directory recurse=yes mode=0755
