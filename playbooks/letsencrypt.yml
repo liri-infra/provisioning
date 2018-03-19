@@ -14,5 +14,5 @@
         minute: 0
         hour: 10
         user: root
-        job: /usr/bin/certbot renew --pre-hook "systemctl stop docker@www" --post-hook "systemctl start docker@www"
+        job: /usr/bin/certbot renew --pre-hook "systemctl stop liri-docker" --post-hook "systemctl start liri-docker"
         cron_file: ansible_letsencrypt-renew
