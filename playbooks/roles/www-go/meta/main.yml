@@ -1,4 +1,4 @@
 ---
 dependencies:
   - role: nginx
-    role_param: nginx_conf_path
+    role_param: nginx

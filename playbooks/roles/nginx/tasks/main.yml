@@ -1,12 +1,12 @@
 ---
 - name: "Create nginx snippets directory"
-  file: path={{ nginx_conf_path }}/snippets state=directory recurse=yes mode=0755
+  file: path={{ nginx.conf_path }}/snippets state=directory recurse=yes mode=0755
 - name: "Create nginx secure directory"
-  file: path={{ nginx_conf_path }}/secure state=directory recurse=yes mode=0755
+  file: path={{ nginx.conf_path }}/secure state=directory recurse=yes mode=0755
 - name: "Virtual hosts"
-  template: src=nginx-vhosts.conf.j2 dest={{ nginx_conf_path }}/nginx-vhosts.conf mode=0644
+  template: src=nginx-vhosts.conf.j2 dest={{ nginx.conf_path }}/nginx-vhosts.conf mode=0644
 - name: "Install snippets"
-  copy: src=snippets/{{ item }} dest={{ nginx_conf_path }}/snippets/{{ item }} mode=0644
+  copy: src=snippets/{{ item }} dest={{ nginx.conf_path }}/snippets/{{ item }} mode=0644
   with_items:
     - ssl.conf
     - gzip.conf
@@ -14,8 +14,8 @@
     - docs.conf
     - repo.liri.io.conf
 - name: "Install htpasswd files"
-  copy: src=secure/{{ item }} dest={{ nginx_conf_path }}/secure/{{ item }} mode=0644
+  copy: src=secure/{{ item }} dest={{ nginx.conf_path }}/secure/{{ item }} mode=0644
   with_items:
     - artifacts.htpasswd
 - name: "Container"
-  shell: docker pull {{ nginx_docker_image }}
+  shell: docker pull {{ nginx.docker_image }}

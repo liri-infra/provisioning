@@ -1,4 +1,4 @@
-{% for vhost in nginx_vhosts %}
+{% for vhost in nginx.vhosts %}
 server {
     listen {{ vhost.listen | default('80 default_server') }};
 

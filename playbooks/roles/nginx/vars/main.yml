@@ -1,121 +1,122 @@
 ---
-nginx_vhosts:
-  - server_name: liri.io
-    listen: 80
-    root: /usr/share/nginx/html/liri.io
-    access_log: /var/log/nginx/liri.io/http_access_log
-    error_log: /var/log/nginx/liri.io/http_error_log
-    return: 301 https://$host$request_uri
-  - server_name: liri.io
-    listen: 443 ssl http2
-    root: /usr/share/nginx/html/liri.io
-    access_log: /var/log/nginx/liri.io/https_access_log
-    error_log: /var/log/nginx/liri.io/https_error_log
-    error_page: 404 /404.html
-    includes:
-      - /etc/nginx/snippets/ssl.conf
-      - /etc/nginx/snippets/gzip.conf
-      - /etc/nginx/snippets/expires.conf
-      - /etc/nginx/snippets/www-go.conf
-      - /etc/nginx/snippets/docs.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+nginx:
+  vhosts:
+    - server_name: liri.io
+      listen: 80
+      root: /usr/share/nginx/html/liri.io
+      access_log: /var/log/nginx/liri.io/http_access_log
+      error_log: /var/log/nginx/liri.io/http_error_log
+      return: 301 https://$host$request_uri
+    - server_name: liri.io
+      listen: 443 ssl http2
+      root: /usr/share/nginx/html/liri.io
+      access_log: /var/log/nginx/liri.io/https_access_log
+      error_log: /var/log/nginx/liri.io/https_error_log
+      error_page: 404 /404.html
+      includes:
+        - /etc/nginx/snippets/ssl.conf
+        - /etc/nginx/snippets/gzip.conf
+        - /etc/nginx/snippets/expires.conf
+        - /etc/nginx/snippets/www-go.conf
+        - /etc/nginx/snippets/docs.conf
+      ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+      ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
+      ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
 
-  - server_name: www.liri.io
-    listen: 80
-    root: /usr/share/nginx/html/liri.io
-    access_log: /var/log/nginx/liri.io/http_www_access_log
-    error_log: /var/log/nginx/liri.io/http_www_error_log
-    return: 301 https://$host$request_uri
-  - server_name: www.liri.io
-    listen: 443 ssl http2
-    root: /usr/share/nginx/html/liri.io
-    access_log: /var/log/nginx/liri.io/https_www_access_log
-    error_log: /var/log/nginx/liri.io/https_www_error_log
-    return: 301 https://liri.io$request_uri
-    includes:
-      - /etc/nginx/snippets/ssl.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    - server_name: www.liri.io
+      listen: 80
+      root: /usr/share/nginx/html/liri.io
+      access_log: /var/log/nginx/liri.io/http_www_access_log
+      error_log: /var/log/nginx/liri.io/http_www_error_log
+      return: 301 https://$host$request_uri
+    - server_name: www.liri.io
+      listen: 443 ssl http2
+      root: /usr/share/nginx/html/liri.io
+      access_log: /var/log/nginx/liri.io/https_www_access_log
+      error_log: /var/log/nginx/liri.io/https_www_error_log
+      return: 301 https://liri.io$request_uri
+      includes:
+        - /etc/nginx/snippets/ssl.conf
+      ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+      ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
+      ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
 
-  - server_name: wiki.liri.io
-    listen: 80
-    root: /usr/share/nginx/html/liri.io
-    access_log: /var/log/nginx/liri.io/http_wiki_access_log
-    error_log: /var/log/nginx/liri.io/http_wiki_error_log
-    return: 301 https://$host$request_uri
-  - server_name: wiki.liri.io
-    listen: 443 ssl http2
-    root: /usr/share/nginx/html/liri.io
-    access_log: /var/log/nginx/liri.io/https_wiki_access_log
-    error_log: /var/log/nginx/liri.io/https_wiki_error_log
-    return: 301 https://github.com/lirios/lirios/wiki
-    includes:
-      - /etc/nginx/snippets/ssl.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    - server_name: wiki.liri.io
+      listen: 80
+      root: /usr/share/nginx/html/liri.io
+      access_log: /var/log/nginx/liri.io/http_wiki_access_log
+      error_log: /var/log/nginx/liri.io/http_wiki_error_log
+      return: 301 https://$host$request_uri
+    - server_name: wiki.liri.io
+      listen: 443 ssl http2
+      root: /usr/share/nginx/html/liri.io
+      access_log: /var/log/nginx/liri.io/https_wiki_access_log
+      error_log: /var/log/nginx/liri.io/https_wiki_error_log
+      return: 301 https://github.com/lirios/lirios/wiki
+      includes:
+        - /etc/nginx/snippets/ssl.conf
+      ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+      ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
+      ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
 
-  - server_name: build.liri.io
-    listen: 80
-    root: /usr/share/nginx/html/build.liri.io
-    access_log: /var/log/nginx/build.liri.io/http_access_log
-    error_log: /var/log/nginx/build.liri.io/http_error_log
-    return: 301 https://$host$request_uri
-    extra_parameters: |
-      autoindex on;
-  - server_name: build.liri.io
-    listen: 443 ssl http2
-    root: /usr/share/nginx/html/build.liri.io
-    access_log: /var/log/nginx/build.liri.io/https_access_log
-    error_log: /var/log/nginx/build.liri.io/https_error_log
-    error_page: 404 /404.html
-    extra_parameters: |
-      autoindex on;
-      location = /404.html {
-          root /usr/share/nginx/html/liri.io;
-          internal;
-      }
-    includes:
-      - /etc/nginx/snippets/ssl.conf
-      - /etc/nginx/snippets/gzip.conf
-      - /etc/nginx/snippets/expires.conf
-      - /etc/nginx/snippets/buildbot-master.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+    - server_name: build.liri.io
+      listen: 80
+      root: /usr/share/nginx/html/build.liri.io
+      access_log: /var/log/nginx/build.liri.io/http_access_log
+      error_log: /var/log/nginx/build.liri.io/http_error_log
+      return: 301 https://$host$request_uri
+      extra_parameters: |
+        autoindex on;
+    - server_name: build.liri.io
+      listen: 443 ssl http2
+      root: /usr/share/nginx/html/build.liri.io
+      access_log: /var/log/nginx/build.liri.io/https_access_log
+      error_log: /var/log/nginx/build.liri.io/https_error_log
+      error_page: 404 /404.html
+      extra_parameters: |
+        autoindex on;
+        location = /404.html {
+            root /usr/share/nginx/html/liri.io;
+            internal;
+        }
+      includes:
+        - /etc/nginx/snippets/ssl.conf
+        - /etc/nginx/snippets/gzip.conf
+        - /etc/nginx/snippets/expires.conf
+        - /etc/nginx/snippets/buildbot-master.conf
+      ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+      ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
+      ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
 
-  - server_name: repo.liri.io
-    listen: 80
-    root: /usr/share/nginx/html/repo.liri.io
-    access_log: /var/log/nginx/repo.liri.io/http_access_log
-    error_log: /var/log/nginx/repo.liri.io/http_error_log
-    return: 301 https://$host$request_uri
-    extra_parameters: |
-      autoindex on;
-  - server_name: repo.liri.io
-    listen: 443 ssl http2
-    root: /usr/share/nginx/html/repo.liri.io
-    access_log: /var/log/nginx/repo.liri.io/https_access_log
-    error_log: /var/log/nginx/repo.liri.io/https_error_log
-    error_page: 404 /404.html
-    extra_parameters: |
-      autoindex on;
-      location = /404.html {
-          root /usr/share/nginx/html/liri.io;
-          internal;
-      }
-    includes:
-      - /etc/nginx/snippets/ssl.conf
-      - /etc/nginx/snippets/gzip.conf
-      - /etc/nginx/snippets/expires.conf
-      - /etc/nginx/snippets/repo.liri.io.conf
-    ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-    ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
-    ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
-nginx_conf_path: /etc/nginx
-nginx_html_path: /srv/www
-nginx_logs_path: /var/log/nginx
-nginx_docker_image: liriorg/nginx
+    - server_name: repo.liri.io
+      listen: 80
+      root: /usr/share/nginx/html/repo.liri.io
+      access_log: /var/log/nginx/repo.liri.io/http_access_log
+      error_log: /var/log/nginx/repo.liri.io/http_error_log
+      return: 301 https://$host$request_uri
+      extra_parameters: |
+        autoindex on;
+    - server_name: repo.liri.io
+      listen: 443 ssl http2
+      root: /usr/share/nginx/html/repo.liri.io
+      access_log: /var/log/nginx/repo.liri.io/https_access_log
+      error_log: /var/log/nginx/repo.liri.io/https_error_log
+      error_page: 404 /404.html
+      extra_parameters: |
+        autoindex on;
+        location = /404.html {
+            root /usr/share/nginx/html/liri.io;
+            internal;
+        }
+      includes:
+        - /etc/nginx/snippets/ssl.conf
+        - /etc/nginx/snippets/gzip.conf
+        - /etc/nginx/snippets/expires.conf
+        - /etc/nginx/snippets/repo.liri.io.conf
+      ssl_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+      ssl_certificate_key: /etc/letsencrypt/live/liri.io/privkey.pem
+      ssl_trusted_certificate: /etc/letsencrypt/live/liri.io/fullchain.pem
+  conf_path: /etc/nginx
+  html_path: /srv/www
+  logs_path: /var/log/nginx
+  docker_image: liriorg/nginx

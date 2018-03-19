@@ -1,13 +1,7 @@
 ---
 dependencies:
   - role: nginx
-    role_param: nginx_docker_image
-  - role: nginx
-    role_param: nginx_conf_path
-  - role: nginx
-    role_param: nginx_html_path
-  - role: nginx
-    role_param: nginx_logs_path
+    role_param: nginx
   - role: www-go
     role_param: www_go
   - role: buildbot-master
