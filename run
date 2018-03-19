@@ -13,4 +13,4 @@ if [ ! -f $playbook_path ]; then
     exit 1
 fi
 
-exec ansible-playbook --vault-password-file=~/.ansible/liri_pass.txt -i inventory $playbook_path --ask-become-pass
+exec ansible-playbook --vault-password-file=~/.ansible/liri_pass.txt -i inventory $playbook_path
