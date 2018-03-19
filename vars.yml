@@ -121,7 +121,3 @@ nginx_conf_path: /etc/nginx
 nginx_html_path: /srv/www
 nginx_logs_path: /var/log/nginx
 nginx_docker_image: liri-docker-registry.bintray.io/library/nginx:latest
-
-www_go:
-  config_file: /etc/liri/www-go.ini
-  docker_image: liri-docker-registry.bintray.io/library/website:latest

@@ -51,25 +51,6 @@
         dest: "{{ nginx_conf_path }}/snippets/buildbot-master.conf"
         mode: 0644
 
-
-    - name: Install www-go snippet
-      copy:
-        src: ../nginx/snippets/www-go.conf
-        dest: "{{ nginx_conf_path }}/snippets/www-go.conf"
-        mode: 0644
-    - name: Install www-go systemd unit
-      template:
-        src: ../templates/www-go.service.j2
-        dest: /etc/systemd/system/docker@www-go.service
-        mode: 0644
-    - name: Start www-go service
-      shell: systemctl enable docker@www-go.service && systemctl daemon-reload && systemctl restart docker@www-go.service
-#      systemd:
-#        name: docker@www-go.service
-#        state: started
-#        enabled: True
-
-
     - name: Install www systemd unit
       template:
         src: ../templates/nginx.service.j2

@@ -24,7 +24,7 @@ services:
     networks:
       - backend
     volumes:
-      - "/etc/liri/www-go.ini:/config.ini:ro"
+      - "{{ www_go.config_file }}:/config.ini:ro"
     restart: on-failure
   buildbot-master:
     image: liridev/buildbot-master

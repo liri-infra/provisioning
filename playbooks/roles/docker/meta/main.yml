@@ -1,4 +1,6 @@
 ---
 dependencies:
+  - role: www-go
+    role_param: www_go
   - role: buildbot-master
     role_param: buildbot_master

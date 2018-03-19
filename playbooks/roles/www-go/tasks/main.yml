@@ -1,0 +1,3 @@
+---
+- name: "Install nginx snippet"
+  copy: src=www-go.conf dest={{ nginx_conf_path }}/snippets/www-go.conf mode=0644

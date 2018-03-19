@@ -1,0 +1,4 @@
+---
+www_go:
+  config_file: /etc/liri/www-go.ini
+  docker_image: liri-docker-registry.bintray.io/library/website:latest
