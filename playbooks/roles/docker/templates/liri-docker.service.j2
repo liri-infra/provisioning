@@ -1,0 +1,11 @@
+[Unit]
+Description=liri.io containers
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=on-failure
+ExecStart=/usr/local/bin/docker-compose -f /etc/liri/liri-docker.yml up
+
+[Install]
+WantedBy=multi-user.target

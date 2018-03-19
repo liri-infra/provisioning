@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: buildbot-master
+    role_param: buildbot_master

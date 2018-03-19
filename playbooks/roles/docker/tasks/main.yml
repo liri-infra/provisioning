@@ -1,0 +1,8 @@
+---
+- name: "Prepare docker-compose file"
+  template: src=liri-docker.yml.j2 dest=/etc/liri/liri-docker.yml mode=0644
+- name: "Prepare systemd unit"
+  template: src=liri-docker.service.j2 dest=/etc/systemd/system/liri-docker.service mode=0644
+- name: "Restart service"
+  shell: systemctl enable liri-docker.service && systemctl daemon-reload && systemctl restart liri-docker.service
+  #systemd: name=liri-docker.service state=restarted enabled=True

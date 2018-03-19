@@ -1,7 +1,8 @@
 ---
-- hosts: build
+- hosts: main
   become: yes
   become_method: sudo
-  tasks:
-    - name: Pull archlinux/devel container
-      command: docker pull liri-docker-build.bintray.io/archlinux/devel:latest
+  vars_files:
+    - ../vars.yml
+  roles:
+    - docker

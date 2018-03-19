@@ -1,0 +1,47 @@
+version: "2"
+services:
+  www:
+    image: liriorg/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - backend
+    volumes:
+      - "/etc/letsencrypt:/etc/letsencrypt:ro"
+      - "/etc/nginx/nginx-vhosts.conf:/etc/nginx/conf.d/default.conf:ro"
+      - "/etc/nginx/secure:/etc/nginx/secure:ro"
+      - "/etc/nginx/snippets:/etc/nginx/snippets:ro"
+      - "/srv/www:/usr/share/nginx/html:ro"
+      - "/var/log/nginx:/var/log/nginx"
+      - "/tmp:/tmp"
+    depends_on:
+      - www-go
+      - buildbot-master
+    restart: on-failure
+  www-go:
+    image: liri-docker-registry.bintray.io/library/website
+    networks:
+      - backend
+    volumes:
+      - "/etc/liri/www-go.ini:/config.ini:ro"
+    restart: on-failure
+  buildbot-master:
+    image: liridev/buildbot-master
+    ports:
+      - "8010"
+      - "9989"
+    networks:
+      - backend
+    volumes:
+      - "{{ buildbot_master.config_file }}:/var/lib/buildbot/settings/config.json:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/srv/ci/buildbot:/var/lib/buildbot"
+      - "/srv/ci/output:/output"
+      - "/srv/www/repo.liri.io:/repo"
+    environment:
+      - "BUILDBOT_CONFIG_URL=https://github.com/lirios/buildbot-config/archive/master.tar.gz"
+      - "BUILDBOT_CONFIG_DIR=liribotcfg"
+    restart: on-failure
+networks:
+  backend:
