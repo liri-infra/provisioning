@@ -45,12 +45,6 @@
         dest: "{{ nginx_conf_path }}/secure/artifacts.htpasswd"
         mode: 0644
 
-    - name: Install buildbot-master snippet
-      copy:
-        src: ../nginx/snippets/buildbot-master.conf
-        dest: "{{ nginx_conf_path }}/snippets/buildbot-master.conf"
-        mode: 0644
-
     - name: Install www systemd unit
       template:
         src: ../templates/nginx.service.j2
