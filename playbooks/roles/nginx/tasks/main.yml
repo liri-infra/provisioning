@@ -1,8 +1,27 @@
 ---
-- name: "Create nginx snippets directory"
-  file: path={{ nginx.conf_path }}/snippets state=directory recurse=yes mode=0755
-- name: "Create nginx secure directory"
-  file: path={{ nginx.conf_path }}/secure state=directory recurse=yes mode=0755
+- name: "Create nginx directories"
+  file: path={{ item.path }} state=directory recurse=yes owner={{ item.owner }} group={{ item.group }} mode=0755
+  with_items:
+    - { path: "{{ nginx.conf_path }}/snippets", owner: "root", group: "root" }
+    - { path: "{{ nginx.conf_path }}/secure", owner: "root", group: "root" }
+    - { path: "{{ nginx.html_path }}/liri.io", owner: "liri", group: "liri" }
+    - { path: "{{ nginx.html_path }}/docs.liri.io", owner: "liri", group: "liri" }
+    - { path: "{{ nginx.html_path }}/build.liri.io", owner: "root", group: "root" }
+    - { path: "{{ nginx.html_path }}/repo.liri.io/archlinux/stable", owner: "root", group: "root" }
+    - { path: "{{ nginx.html_path }}/repo.liri.io/archlinux/unstable", owner: "root", group: "root" }
+    - { path: "{{ nginx.html_path }}/repo.liri.io/artifacts/master", owner: "root", group: "root" }
+    - { path: "{{ nginx.html_path }}/repo.liri.io/artifacts/develop", owner: "root", group: "root" }
+    - { path: "{{ nginx.logs_path }}/liri.io", owner: "root", group: "root" }
+    - { path: "{{ nginx.logs_path }}/build.liri.io", owner: "root", group: "root" }
+    - { path: "{{ nginx.logs_path }}/repo.liri.io", owner: "root", group: "root" }
+- name: "Copy favicon.ico"
+  get_url:
+    url: https://raw.githubusercontent.com/lirios/lirios.github.io/master/favicon.ico
+    dest: "{{ nginx.html_path }}/{{ item }}/favicon.ico"
+    mode: 0644
+  with_items:
+    - build.liri.io
+    - repo.liri.io
 - name: "Virtual hosts"
   template: src=nginx-vhosts.conf.j2 dest={{ nginx.conf_path }}/nginx-vhosts.conf mode=0644
 - name: "Install snippets"
