@@ -31,10 +31,5 @@
     - gzip.conf
     - expires.conf
     - docs.conf
-    - repo.liri.io.conf
-- name: "Install htpasswd files"
-  copy: src=secure/{{ item }} dest={{ nginx.conf_path }}/secure/{{ item }} mode=0644
-  with_items:
-    - artifacts.htpasswd
 - name: "Container"
   shell: docker pull {{ nginx.docker_image }}
