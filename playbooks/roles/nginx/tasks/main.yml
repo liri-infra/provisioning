@@ -9,8 +9,9 @@
     - { path: "{{ nginx.html_path }}/build.liri.io", owner: "root", group: "root" }
     - { path: "{{ nginx.html_path }}/repo.liri.io/archlinux/stable", owner: "root", group: "root" }
     - { path: "{{ nginx.html_path }}/repo.liri.io/archlinux/unstable", owner: "root", group: "root" }
-    - { path: "{{ nginx.html_path }}/repo.liri.io/artifacts/master", owner: "root", group: "root" }
-    - { path: "{{ nginx.html_path }}/repo.liri.io/artifacts/develop", owner: "root", group: "root" }
+    - { path: "{{ nginx.html_path }}/repo.liri.io/artifacts", owner: "liri", group: "liri" }
+    - { path: "{{ nginx.html_path }}/repo.liri.io/artifacts/master", owner: "liri", group: "liri" }
+    - { path: "{{ nginx.html_path }}/repo.liri.io/artifacts/develop", owner: "liri", group: "liri" }
     - { path: "{{ nginx.logs_path }}/liri.io", owner: "root", group: "root" }
     - { path: "{{ nginx.logs_path }}/build.liri.io", owner: "root", group: "root" }
     - { path: "{{ nginx.logs_path }}/repo.liri.io", owner: "root", group: "root" }
