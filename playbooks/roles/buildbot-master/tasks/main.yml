@@ -1,8 +1,12 @@
 ---
 - name: "Create state directory"
-  file: path={{ buildbot_master.state_dir }} state=directory recurse=yes mode=0755
+  file: path={{ buildbot_master.state_dir }}/{{ item }} state=directory recurse=yes mode=0755
+  with_items:
+    - flatpak
 - name: "Create configuration directory"
   file: path={{ buildbot_master.config_dir }} state=directory recurse=yes mode=0755
+- name: "Copy files"
+  copy: src=flatpak-gpg.tar.gz dest={{ buildbot_master.state_dir }}/flatpak
 - name: "Configuration"
   template: src=config.json.j2 dest={{ buildbot_master.config_file }} mode=0644
 - name: "Install nginx snippet"
