@@ -29,7 +29,7 @@ services:
   buildbot-master:
     image: liridev/buildbot-master
     ports:
-      - "8010"
+      - "8010:8010"
       - "9989"
     networks:
       - backend
