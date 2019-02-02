@@ -1,0 +1,11 @@
+[Unit]
+Description=Liri web site
+Requires=traefik.service
+
+[Service]
+TimeoutStartSec=0
+Restart=on-failure
+ExecStart=/usr/local/bin/docker-compose -f /etc/liri/www/docker-compose.yml up
+
+[Install]
+WantedBy=multi-user.target

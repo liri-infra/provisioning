@@ -1,0 +1,20 @@
+version: '2'
+
+networks:
+  web:
+    external: false
+
+services:
+  reverse-proxy:
+    image: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/liri/traefik/traefik.toml:/etc/traefik/traefik.toml
+      - /etc/liri/traefik/acme:/etc/traefik/acme
+    networks:
+      - web
+    restart: on-failure

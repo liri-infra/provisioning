@@ -1,0 +1,31 @@
+version: '2'
+
+networks:
+  traefik_web:
+    external: true
+
+services:
+  backend:
+    image: liri-docker-registry.bintray.io/library/website:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Path:/backend"
+    volumes:
+      - /etc/liri/www-go.ini:/config.ini:ro
+    networks:
+      - traefik_web
+    restart: on-failure
+  frontend:
+    image: liriorg/nginx
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:liri.io,www.liri.io,repo.liri.io"
+    volumes:
+      - /etc/liri/www/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/liri/www/snippets:/etc/nginx/snippets:ro
+      - /srv/www:/usr/share/nginx/html:ro
+      - /var/log/nginx:/var/log/nginx
+    networks:
+      - traefik_web
+    restart: on-failure

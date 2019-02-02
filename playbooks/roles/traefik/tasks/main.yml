@@ -1,0 +1,18 @@
+- name: "Create directories"
+  file: path={{ item }} state=directory recurse=yes owner=root group=root mode=0755
+  loop:
+    - "/etc/liri/traefik/acme"
+
+- name: "Change acme.json permissions"
+  file: path="/etc/liri/traefik/acme/acme.json" mode=0600
+
+- name: "Copy files"
+  copy: src={{ item.src }} dest={{ item.dest }} mode=0644
+  loop:
+    - { src: "traefik.toml", dest: "/etc/liri/traefik/traefik.toml" }
+    - { src: "compose.yml", dest: "/etc/liri/traefik/docker-compose.yml" }
+    - { src: "traefik.service", dest: "/etc/systemd/system/traefik.service" }
+
+- name: "Restart service"
+  shell: systemctl enable traefik.service && systemctl daemon-reload && systemctl restart traefik.service
+  #systemd: name=traefik.service state=restarted enabled=True

@@ -1,0 +1,25 @@
+version: '2'
+
+networks:
+  traefik_web:
+    external: true
+
+services:
+  master:
+    image: liridev/buildbot-master
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8010"
+      - "traefik.frontend.rule=Host:build.liri.io"
+    environment:
+      - BUILDBOT_CONFIG_URL=https://github.com/lirios/buildbot-config/archive/master.tar.gz
+      - BUILDBOT_CONFIG_DIR=liribotcfg
+    volumes:
+      - /etc/liri/buildbot-master/config.json:/var/lib/buildbot/settings/config.json:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/ci/buildbot:/var/lib/buildbot
+      - /srv/ci/output:/output
+      - /srv/www/repo.liri.io:/repo
+    networks:
+      - traefik_web
+    restart: on-failure

@@ -1,0 +1,11 @@
+[Unit]
+Description=Traefik container
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=on-failure
+ExecStart=/usr/local/bin/docker-compose -f /etc/liri/traefik/docker-compose.yml up
+
+[Install]
+WantedBy=multi-user.target

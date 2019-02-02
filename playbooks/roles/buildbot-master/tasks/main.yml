@@ -1,15 +1,23 @@
----
 - name: "Create state directory"
   file: path={{ buildbot_master.state_dir }}/{{ item }} state=directory recurse=yes mode=0755
-  with_items:
+  loop:
     - flatpak
+
 - name: "Create configuration directory"
   file: path={{ buildbot_master.config_dir }} state=directory recurse=yes mode=0755
+
 - name: "Copy files"
   copy: src=flatpak-gpg.tar.gz dest={{ buildbot_master.state_dir }}/flatpak
+
 - name: "Configuration"
   template: src=config.json.j2 dest={{ buildbot_master.config_file }} mode=0644
-- name: "Install nginx snippet"
-  copy: src=buildbot-master.conf dest={{ nginx.conf_path }}/snippets/buildbot-master.conf mode=0644
-- name: "Container"
-  shell: docker pull {{ buildbot_master.docker_image }}
+
+- name: "Copy configuration"
+  copy: src={{ item.src }} dest={{ item.dest }} mode=0644
+  loop:
+    - { src: "buildbot-master.service", dest: "/etc/systemd/system/buildbot-master.service" }
+    - { src: "compose.yml", dest: "/etc/liri/buildbot-master/docker-compose.yml" }
+
+- name: "Restart service"
+  shell: systemctl enable buildbot-master.service && systemctl daemon-reload && systemctl restart buildbot-master.service
+  #systemd: name=buildbot-master.service state=restarted enabled=True
