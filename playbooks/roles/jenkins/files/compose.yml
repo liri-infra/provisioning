@@ -1,0 +1,23 @@
+version: "2"
+
+networks:
+  traefik_web:
+    external: true
+
+volumes:
+  jenkins:
+
+services:
+  jenkins:
+    build:
+      context: .
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:build.liri.io"
+    volumes:
+      - jenkins:/var/jenkins_home
+      - /srv/www/repo.liri.io:/repo
+    networks:
+      - traefik_web
+    restart: on-failure
