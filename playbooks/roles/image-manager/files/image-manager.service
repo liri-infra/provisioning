@@ -1,0 +1,10 @@
+[Unit]
+Description=Image Manager
+
+[Service]
+TimeoutStartSec=0
+Restart=on-failure
+ExecStart=/usr/local/bin/docker-compose -f /etc/liri/image-manager/docker-compose.yml up
+
+[Install]
+WantedBy=multi-user.target

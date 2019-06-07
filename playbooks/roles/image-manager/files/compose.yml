@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  image-manager:
+    image: liriorg/image-manager:latest
+    labels:
+      - "traefik.enable=false"
+    volumes:
+      - /etc/liri/image-manager/config.ini:/etc/liri/image-manager.ini:ro
+      - /srv/www/repo.liri.io:/repo
+    ports:
+      - a331b6c4-3b30-4b51-842e-e0639a921774.priv.cloud.scaleway.com:2753:8080
+    restart: on-failure
