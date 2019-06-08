@@ -6,7 +6,8 @@ services:
     labels:
       - "traefik.enable=false"
     volumes:
-      - /etc/liri/image-manager/config.ini:/etc/liri/image-manager.ini:ro
+      - /etc/liri/image-manager/config.ini:/etc/liri/image-manager/config.ini:ro
+      - /etc/liri/image-manager/users.json:/etc/liri/image-manager/users.json:ro
       - /srv/www/repo.liri.io:/repo
     ports:
       - a331b6c4-3b30-4b51-842e-e0639a921774.priv.cloud.scaleway.com:2753:8080

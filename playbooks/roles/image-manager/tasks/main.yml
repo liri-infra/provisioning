@@ -4,6 +4,7 @@
     - { src: "image-manager.service", dest: "/etc/systemd/system/image-manager.service" }
     - { src: "compose.yml", dest: "/etc/liri/image-manager/docker-compose.yml" }
     - { src: "config.ini", dest: "/etc/liri/image-manager/config.ini" }
+    - { src: "users.json", dest: "/etc/liri/image-manager/users.json" }
 
 - name: "Restart service"
   shell: systemctl enable image-manager.service && systemctl daemon-reload && systemctl restart image-manager.service
