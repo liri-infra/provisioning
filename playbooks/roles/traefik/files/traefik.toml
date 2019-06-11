@@ -1,3 +1,4 @@
+logLevel = "INFO"
 defaultEntryPoints = ["http", "https"]
 
 [entryPoints]
@@ -8,12 +9,11 @@ defaultEntryPoints = ["http", "https"]
     [entryPoints.https.tls]
 
 [acme]
-  email = "pierluigi.fiorini@gmail.com"
+  email = "pierluigi.fiorini@liri.io"
   entryPoint = "https"
   storage = "/etc/traefik/acme/acme.json"
   acmeLogging = true
   onHostRule = true
-  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
   [acme.httpChallenge]
     entryPoint = "http"
   [[acme.domains]]
