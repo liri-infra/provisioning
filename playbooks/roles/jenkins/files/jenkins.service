@@ -5,7 +5,7 @@ Requires=traefik.service
 [Service]
 TimeoutStartSec=0
 Restart=on-failure
-ExecStart=/usr/local/bin/docker-compose -f /etc/liri/jenkins/docker-compose.yml up
+ExecStart=/usr/local/bin/docker-compose -f /etc/liri/jenkins/docker-compose.yml up --build
 
 [Install]
 WantedBy=multi-user.target
