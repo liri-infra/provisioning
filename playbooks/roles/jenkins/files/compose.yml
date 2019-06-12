@@ -16,7 +16,7 @@ services:
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:build.liri.io"
     volumes:
-      - jenkins:/var/jenkins_home
+      - /srv/jenkins:/var/jenkins_home
       - /srv/www/repo.liri.io:/repo
     networks:
       - traefik_web
