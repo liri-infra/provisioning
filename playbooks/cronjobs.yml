@@ -6,3 +6,4 @@
     - ../vars.yml
   tasks:
     - cron: name="clean apt cache" minute="15" hour="0" job="apt-get clean"
+    - cron: name="docker gc" hour="*/2" job="docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /etc:/etc:ro spotify/docker-gc"
