@@ -1,5 +1,6 @@
 [Unit]
 Description=Traefik container
+After=docker.service
 Requires=docker.service
 
 [Service]

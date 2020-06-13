@@ -9,7 +9,7 @@
 - name: "Copy files"
   copy: src={{ item.src }} dest={{ item.dest }} mode=0644
   loop:
-    - { src: "traefik.toml", dest: "/etc/liri/traefik/traefik.toml" }
+    - { src: "traefik.yml", dest: "/etc/liri/traefik/traefik.yml" }
     - { src: "compose.yml", dest: "/etc/liri/traefik/docker-compose.yml" }
     - { src: "traefik.service", dest: "/etc/systemd/system/traefik.service" }
 

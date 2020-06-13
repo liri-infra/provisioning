@@ -6,14 +6,15 @@ networks:
 
 services:
   reverse-proxy:
-    image: traefik
+    image: traefik:v2.2
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
+      - "2537:2537"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/liri/traefik/traefik.toml:/etc/traefik/traefik.toml
+      - /etc/liri/traefik/traefik.yml:/etc/traefik/traefik.yml
       - /etc/liri/traefik/acme:/etc/traefik/acme
     networks:
       - web

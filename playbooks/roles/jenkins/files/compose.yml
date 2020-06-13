@@ -12,9 +12,12 @@ services:
     build:
       context: .
     labels:
-      - "traefik.enable=true"
-      - "traefik.port=8080"
-      - "traefik.frontend.rule=Host:build.liri.io"
+      - traefik.enable=true
+      - traefik.http.routers.jenkins.rule=Host(`build.liri.io`)
+      - traefik.http.routers.jenkins.tls=true
+      - traefik.http.routers.jenkins.tls.certresolver=letsencrypt
+      - traefik.http.routers.jenkins.tls.domains[0].main=build.liri.io
+      - traefik.http.services.jenkins.loadbalancer.server.port=8080
     volumes:
       - /srv/jenkins:/var/jenkins_home
       - /srv/www/repo.liri.io:/repo

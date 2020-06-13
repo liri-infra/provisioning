@@ -1,6 +1,7 @@
 [Unit]
 Description=Jenkins
-Requires=traefik.service
+After=docker.service
+Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
