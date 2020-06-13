@@ -24,8 +24,8 @@ defaultEntryPoints = ["http", "https"]
 
 [api]
   entryPoint = "traefik"
-  dashboard = true
-  debug = true
+  dashboard = false
+  debug = false
 
 [docker]
   endpoint = "unix:///var/run/docker.sock"
