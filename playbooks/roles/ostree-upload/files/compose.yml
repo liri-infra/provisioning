@@ -1,16 +1,29 @@
 version: "2"
 
+networks:
+  traefik_web:
+    external: true
+
 services:
   ostree-upload:
     image: liriorg/ostree-upload:latest
+    command: ["receive", "--config=/etc/ostree-upload.yaml", "--repo=/var/repo"]
+    expose:
+      - "8080"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.ostree-upload.rule=Host(`liri.io`) && Path(`/services/ostree-upload`)
-      - traefik.http.routers.ostree-upload.tls=true
-      - traefik.http.routers.ostree-upload.tls.certresolver=letsencrypt
-      - traefik.http.routers.ostree-upload.tls.domains[0].main=liri.io
-      - traefik.http.services.ostree-upload.loadbalancer.server.port=8080
+      - traefik.http.routers.ostree-upload.rule=Host(`repo.liri.io`)
+      - traefik.http.routers.ostree-upload.entryPoints=api
+#      - traefik.http.routers.ostree-upload.rule=Host(`liri.io`) && PathPrefix(`/services/ostree-upload/`)
+#      - traefik.http.routers.ostree-upload.tls=true
+#      - traefik.http.routers.ostree-upload.tls.certresolver=letsencrypt
+#      - traefik.http.routers.ostree-upload.tls.domains[0].main=liri.io
+#      - traefik.http.routers.ostree-upload.tls.domains[0].sans=www.liri.io
+#      - traefik.http.routers.ostree-upload.tls.domains[0].sans=repo.liri.io
+#      - traefik.http.services.ostree-upload.loadbalancer.server.port=8080
     volumes:
-      - /etc/liri/ostree-upload/settings.yaml:ostree-upload.yaml:ro
-      - /srv/www/repo.liri.io:repo
+      - /etc/liri/ostree-upload/settings.yaml:/etc/ostree-upload.yaml:ro
+      - /srv/www/repo.liri.io/ostree/repo:/var/repo
+    networks:
+      - traefik_web
     restart: on-failure

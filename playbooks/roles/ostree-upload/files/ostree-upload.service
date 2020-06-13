@@ -1,0 +1,12 @@
+[Unit]
+Description=Receive OSTree objects from other repositories
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=on-failure
+ExecStart=/usr/local/bin/docker-compose -f /etc/liri/ostree-upload/docker-compose.yml up
+
+[Install]
+WantedBy=multi-user.target

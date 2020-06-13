@@ -1,0 +1,15 @@
+- name: "Create directories"
+  file: path={{ item }} state=directory recurse=yes owner=root group=root mode=0755
+  with_items:
+    - "/etc/liri/ostree-upload"
+
+- name: "Copy configuration"
+  copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }}
+  loop:
+    - { src: "ostree-upload.service", dest: "/etc/systemd/system/ostree-upload.service", mode: 644 }
+    - { src: "compose.yml", dest: "/etc/liri/ostree-upload/docker-compose.yml", mode: 644 }
+    - { src: "settings.yaml", dest: "/etc/liri/ostree-upload/settings.yaml", mode: 600 }
+
+- name: "Restart service"
+  shell: systemctl enable ostree-upload.service && systemctl daemon-reload && systemctl restart ostree-upload.service
+  #systemd: name=ostree-upload.service state=restarted enabled=True
