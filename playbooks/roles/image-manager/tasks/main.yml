@@ -1,10 +1,9 @@
 - name: "Copy configuration"
-  copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }}
+  copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }} force={{ item.force }}
   loop:
-    - { src: "image-manager.service", dest: "/etc/systemd/system/image-manager.service", mode: 644 }
-    - { src: "compose.yml", dest: "/etc/liri/image-manager/docker-compose.yml", mode: 644 }
-    - { src: "config.ini", dest: "/etc/liri/image-manager/config.ini", mode: 600 }
-    - { src: "users.json", dest: "/etc/liri/image-manager/users.json", mode: 600 }
+    - { src: "image-manager.service", dest: "/etc/systemd/system/image-manager.service", mode: 644, force: 'yes' }
+    - { src: "compose.yml", dest: "/etc/liri/image-manager/docker-compose.yml", mode: 644, force: 'yes' }
+    - { src: "settings.yaml", dest: "/etc/liri/image-manager/settings.yaml", mode: 600, force: 'no' }
 
 - name: "Restart service"
   shell: systemctl enable image-manager.service && systemctl daemon-reload && systemctl restart image-manager.service

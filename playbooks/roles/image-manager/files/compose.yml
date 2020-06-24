@@ -1,14 +1,26 @@
 version: "2"
 
+networks:
+  traefik_web:
+    external: true
+
 services:
   image-manager:
     image: liriorg/image-manager:latest
+    command: ["server", "--config=/etc/image-manager.yaml", "--path=/var/repo"]
+    expose:
+      - "8080"
     labels:
-      - "traefik.enable=false"
+      - traefik.enable=true
+      - traefik.http.routers.image-manager.rule=Host(`api.liri.io`) && PathPrefix(`/image-manager`)
+      - traefik.http.routers.image-manager.entryPoints=web,websecure
+      - traefik.http.routers.image-manager.tls=true
+      - traefik.http.routers.image-manager.tls.certresolver=letsencrypt
+      - traefik.http.routers.image-manager.tls.domains[0].main=api.liri.io
+      - traefik.http.services.image-manager.loadbalancer.server.port=8080
     volumes:
-      - /etc/liri/image-manager/config.ini:/etc/liri/image-manager/config.ini:ro
-      - /etc/liri/image-manager/users.json:/etc/liri/image-manager/users.json:ro
-      - /srv/www/repo.liri.io:/repo
-    ports:
-      - a331b6c4-3b30-4b51-842e-e0639a921774.priv.cloud.scaleway.com:2753:8080
+      - /etc/liri/image-manager/settings.yaml:/etc/image-manager.yaml:ro
+      - /srv/www/repo.liri.io/images:/var/repo
+    networks:
+      - traefik_web
     restart: on-failure
