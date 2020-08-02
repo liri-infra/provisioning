@@ -7,9 +7,15 @@ networks:
 services:
   backend:
     image: liri-docker-registry.bintray.io/library/website:latest
+    expose:
+      - "8080"
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Path:/backend
+      - traefik.http.routers.www-backend.rule=Host(`api.liri.io`) && PathPrefix(`/backend`)
+      - traefik.http.routers.www-backend.entryPoints=websecure
+      - traefik.http.routers.www-backend.tls=true
+      - traefik.http.routers.www-backend.tls.certresolver=letsencrypt
+      - traefik.http.services.www-backend.loadbalancer.server.port=8080
     volumes:
       - /etc/liri/www-go.ini:/config.ini:ro
     networks:
@@ -17,14 +23,14 @@ services:
     restart: on-failure
   frontend:
     image: liriorg/nginx
+    expose:
+      - "80"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.www.rule=Host(`liri.io`, `www.liri.io`, `repo.liri.io`)
+      - traefik.http.routers.www.rule=Host(`repo.liri.io`)
+      - traefik.http.routers.www.entryPoints=websecure
       - traefik.http.routers.www.tls=true
       - traefik.http.routers.www.tls.certresolver=letsencrypt
-      - traefik.http.routers.www.tls.domains[0].main=liri.io
-      - traefik.http.routers.www.tls.domains[0].sans=www.liri.io
-      - traefik.http.routers.www.tls.domains[0].sans=repo.liri.io
       - traefik.http.services.www.loadbalancer.server.port=80
     volumes:
       - /etc/liri/www/nginx.conf:/etc/nginx/conf.d/default.conf:ro

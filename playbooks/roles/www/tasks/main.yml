@@ -2,11 +2,6 @@
   file: path={{ item.path }} state=directory recurse=yes owner={{ item.owner }} group={{ item.group }} mode=0755
   loop:
     - { path: "/etc/liri/www/snippets", owner: "root", group: "root" }
-    - { path: "/srv/www/liri.io", owner: "liri", group: "liri" }
-    - { path: "/srv/www/docs.liri.io", owner: "liri", group: "liri" }
-    - { path: "/srv/www/build.liri.io", owner: "root", group: "root" }
-    - { path: "/var/log/nginx/liri.io", owner: "root", group: "root" }
-    - { path: "/var/log/nginx/build.liri.io", owner: "root", group: "root" }
     - { path: "/var/log/nginx/repo.liri.io", owner: "root", group: "root" }
 
 - name: "Copy favicon.ico"
@@ -15,7 +10,6 @@
     dest: "/srv/www/{{ item }}/favicon.ico"
     mode: 0644
   loop:
-    - build.liri.io
     - repo.liri.io
 
 - name: "Copy configuration"
