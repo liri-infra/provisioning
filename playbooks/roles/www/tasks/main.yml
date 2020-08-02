@@ -20,6 +20,7 @@
     - { src: "snippets/gzip.conf", dest: "/etc/liri/www/snippets/gzip.conf" }
     - { src: "snippets/expires.conf", dest: "/etc/liri/www/snippets/expires.conf" }
     - { src: "www.service", dest: "/etc/systemd/system/www.service" }
+    - { src: "robots.txt", dest: "/srv/www/repo.liri.io/robots.txt", mode: 0644 }
 
 - name: "Restart service"
   shell: systemctl enable www.service && systemctl daemon-reload && systemctl restart www.service
